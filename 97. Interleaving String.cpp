@@ -17,3 +17,29 @@ public:
         return false;
     }
 };
+class Solution {
+public:
+    bool isInterleave(string s1, string s2, string s3) {
+        int i3=0,l3=s3.size(),i1=0,i2=0,l1=s1.size(),l2=s2.size();
+        if(l1+l2!=l3) return false;
+        vector<vector<bool>> res(l1+1, vector<bool>(l2+1, false));
+        
+        res[0][0]=true;
+        // for the first row
+        for(i2=1;i2<=l2;++i2){
+            res[0][i2]=res[0][i2-1]&&s3.at(i2-1)==s2.at(i2-1);
+        }
+        
+        for(i1=1;i1<=l1;++i1){
+            // for the first column
+            res[i1][0]=res[i1-1][0]&&s3.at(i1-1)==s1.at(i1-1);
+            
+            // main dp
+            for(i2=1;i2<=l2;++i2){
+                res[i1][i2]=res[i1-1][i2]&&s1[i1-1]==s3[i1+i2-1]||
+                            res[i1][i2-1]&&s2[i2-1]==s3[i1+i2-1];
+            }
+        }
+        return res[l1][l2];
+    }
+};
