@@ -9,7 +9,7 @@
  */
 class Solution {
 public:
-    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
         queue<TreeNode*> q;
         vector<vector<int>> ret;
         if(root==NULL) return ret;
@@ -17,6 +17,7 @@ public:
         q.push(root);
         TreeNode* temp;
         int curLevelSize=1, nextLevelSize=0;
+        bool inorder=true;
         
         while(q.size()){
             temp=q.front();
@@ -35,13 +36,14 @@ public:
                 ++nextLevelSize;
             }
             if(curLevelSize==0){
+                if(!inorder) reverse(level.begin(), level.end());
+                inorder=!inorder;
                 ret.push_back(level);
                 level.clear();
                 curLevelSize=nextLevelSize;
                 nextLevelSize=0;
             }
         }
-        reverse(ret.begin(), ret.end());
         return ret;
     }
 };
