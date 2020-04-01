@@ -48,3 +48,25 @@ public:
         return false;
     }
 };
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        vector<int> map(128, 0);
+        for(int i=0;i<t.size();i++)
+            map[t.at(i)]++;
+        
+        int left=0,right=0,counter=t.size(),min=INT_MAX,start=-1;
+        while(right<s.size()){
+            if(map[s[right++]]-->0) counter--;
+            while(counter==0){
+                if(min>right-left){
+                    min=right-left;
+                    start=left;
+                }
+                if(map[s[left++]]++==0) counter++;
+            }
+        }
+        
+        return start==-1?"":s.substr(start, min);
+    }
+};
