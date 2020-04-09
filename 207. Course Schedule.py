@@ -1,6 +1,6 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        prerequisite = {}
+        prerequisite={}
         for a,b in prerequisites:
             prerequisite.setdefault(a, []).append(b)
 
@@ -9,10 +9,9 @@ class Solution:
         flag=True
         while flag:
             flag=False
-            used_k=list()
+            used_k=[]  # do not modify dict on fly
             for k,v in prerequisite.items():
-                all_=all([c[each] for each in v])
-                if all_:
+                if all([c[each] for each in v]):
                     c[k]=True
                     flag=True
                     used_k.append(k)
