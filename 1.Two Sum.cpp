@@ -16,3 +16,21 @@ public:
 	}
 };
 //Runtime: 180 ms
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        map<int, int> m;
+        vector<int> ret;
+        for(int i=0;i<nums.size();++i)
+            m[nums[i]]=i;
+        for(int i=0;i<nums.size();++i){
+            auto it=m.find(target-nums[i]);
+            if(it!=m.end()&&it->second!=i){
+                ret.push_back(i);
+                ret.push_back(it->second);
+                return ret;
+            }
+        }
+        return ret;
+    }
+};
