@@ -26,3 +26,25 @@ public:
 []
 [[5]]
 */
+
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        vector<int> dp(triangle[triangle.size()-1].size());
+        dp[0]=triangle[0][0];
+        for(int i=1;i<triangle.size();++i){
+            int leftUp=dp[0];
+            dp[0]=dp[0]+triangle[i][0];
+            for(int j=1;j<i;++j){
+                int temp=min(leftUp, dp[j])+triangle[i][j];
+                leftUp=dp[j];
+                dp[j]=temp;
+            }
+            dp[i]=leftUp+triangle[i][i];
+        }
+        int ret=INT_MAX;
+        for(int j=0;j<dp.size();++j)
+            ret=min(ret, dp[j]);
+        return ret;
+    }
+};
