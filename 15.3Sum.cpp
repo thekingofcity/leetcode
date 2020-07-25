@@ -56,3 +56,38 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> ret;
+        if(nums.size()<3) return ret;
+        sort(nums.begin(), nums.end());
+        for(int i=0;i<nums.size();++i){
+            // skip duplicate
+            if(i&&nums[i]==nums[i-1]) continue;
+            // pruning
+            if(nums[i]>0) break;
+
+            int target=-nums[i];
+            int low=i+1,high=nums.size()-1;
+            int sum=0;
+            while(low<high){
+                sum=nums[low]+nums[high];
+                if(sum<target) ++low;
+                else if(sum>target) --high;
+                else{
+                    vector<int> res;
+                    res.push_back(nums[i]);
+                    res.push_back(nums[low]);
+                    res.push_back(nums[high]);
+                    ret.push_back(res);
+                    // skip duplicate
+                    do{++low;} while(low<high&&nums[low-1]==nums[low]);
+                    do{--high;} while(low<high&&nums[high+1]==nums[high]);
+                }
+            }
+        }
+        return ret;
+    }
+};
