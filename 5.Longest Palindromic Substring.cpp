@@ -48,3 +48,27 @@ public:
     }
 };
 //Runtime: 22 ms
+
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        if(s.size()==0) return "";
+        string ret="",temp;
+        for(int i=0;i<s.size();++i){
+            temp=expand(s, i, i);
+            if(temp.size()>ret.size()) ret=temp;
+            temp=expand(s, i, i+1);
+            if(temp.size()>ret.size()) ret=temp;
+        }
+        return ret;
+    }
+    
+    string expand(string &s, int l, int r){
+        while(l>=0&&r<s.size()&&s[l]==s[r]){
+            --l;
+            ++r;
+        }
+        ++l;--r;
+        return s.substr(l, r-l+1);
+    }
+};
