@@ -61,3 +61,45 @@ public:
 // 3
 // [3,1,4,null,2]
 // 2
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+private:
+    int ret=0;
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        int c=0;
+        helper(root, k, c);
+        return ret;
+    }
+    
+    void helper(TreeNode* root, int k, int &c){
+        if(!root) return;
+        
+        helper(root->left, k, c);
+        
+        ++c;
+        if(k==c){
+            ret=root->val;
+            return;
+        }
+        
+        helper(root->right, k, c);
+    }
+};
+// [3,1,4,null,2]
+// 1
+// [5,3,6,2,4,null,null,1]
+// 3
+// [5,3,6,2,4,null,null,1]
+// 6
