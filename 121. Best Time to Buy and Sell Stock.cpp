@@ -10,3 +10,16 @@ public:
         return ret;
     }
 };
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        if(prices.empty()) return 0;
+        int minBefore=prices[0],maxRet=0;
+        for(int i=1;i<prices.size();++i){
+            maxRet=max(maxRet, prices[i]-minBefore);
+            minBefore=min(minBefore, prices[i]);
+        }
+        return maxRet;
+    }
+};
