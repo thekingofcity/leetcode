@@ -13,3 +13,21 @@ public:
         return maxSum;
     }
 };
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        if(nums.empty()) return INT_MIN;
+        int m=nums[0],globalMax=nums[0];
+        for(int i=1;i<nums.size();++i){
+            if(m<0){
+                m=nums[i];
+                globalMax=max(globalMax, m);
+            }else{
+                m+=nums[i];
+                globalMax=max(globalMax, m);
+            }
+        }
+        return globalMax;
+    }
+};
