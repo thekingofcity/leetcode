@@ -57,3 +57,28 @@ public:
     }
 };
 //Runtime: 33 ms
+
+class Solution {
+public:
+    int myAtoi(string str) {
+        int i=0; long ans=0; bool minus=false;
+        while(i<str.size()&&str[i]==' ')
+            ++i;
+        if(!(isdigit(str[i])||str[i]=='+'||str[i]=='-'))
+            return 0;
+        if(str[i]=='+'||str[i]=='-')
+            minus=str[i++]=='-'?true:false;
+        while(i<str.size()&&isdigit(str[i])){
+            ans=ans*10+(str[i++]-'0');
+            if(ans>INT_MAX)
+                return minus?INT_MIN:INT_MAX;
+        }
+        if(minus) ans=-ans;
+        return (int)ans;
+    }
+    
+    bool isdigit(char c){
+        if(c>='0'&&c<='9') return true;
+        return false;
+    }
+};
