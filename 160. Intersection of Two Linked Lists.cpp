@@ -37,3 +37,31 @@ public:
         }
     }
 };
+
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if(nullptr==headA||nullptr==headB) return nullptr;
+        ListNode *a=headA, *b=headB;
+        bool fa=false, fb=false;
+        while(1){
+            if(a==b) return a;
+            a=a->next;
+            if(!a){
+                if(!fa){
+                    a=headB;
+                    fa=true;
+                }else
+                    return nullptr;
+            }
+            b=b->next;
+            if(!b){
+                if(!fb){
+                    b=headA;
+                    fb=true;
+                }else
+                    return nullptr;
+            }
+        }
+    }
+};
