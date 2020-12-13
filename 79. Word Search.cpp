@@ -1,25 +1,23 @@
 class Solution {
 public:
     bool exist(vector<vector<char>>& board, string word) {
-        if(word.size()==0) return true;
-        bool ret=false;
-        vector<vector<bool>> isUsed;
-        for(int i=0;i<board.size();++i){
-            vector<bool> temp(board[0].size(), false);
-            isUsed.push_back(temp);
-        }
+        if(word.empty()) return true;
+        if(board.empty()||board[0].empty()) return false;
+        vector<vector<bool>> isUsed(board.size(), vector<bool>(board[0].size(), false));
+
+        string current="";
         for(int i=0;i<board.size();++i){
             for(int j=0;j<board[0].size();++j){
-                ret=existCore(board, word, 0, i, j, isUsed, "");
-                if(ret) return ret;
+                if(existCore(board, word, 0, i, j, isUsed, current))
+                    return true;
             }
         }
-        return ret;
+        return false;
     }
     
-    bool existCore(vector<vector<char>>& board, string word, int index,
+    bool existCore(vector<vector<char>>& board, string &word, int index,
                    int x, int y, vector<vector<bool>>& isUsed,
-                   string current){
+                   string &current){
         // see Line 31 for reason
         // if(word.compare(current)==0) return true;
         bool ret=false;
