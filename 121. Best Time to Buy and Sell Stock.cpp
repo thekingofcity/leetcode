@@ -23,3 +23,16 @@ public:
         return maxRet;
     }
 };
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        if(prices.empty()) return 0;
+        int minBefore=prices[0],maxRet=0;
+        for(auto price:prices){
+            maxRet=max(maxRet, price-minBefore);
+            minBefore=min(minBefore, price);
+        }
+        return maxRet;
+    }
+};
